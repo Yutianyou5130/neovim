@@ -2,7 +2,28 @@ local set = vim.o
 set.number = true
 set.relativenumber = true
 set.encoding = "UTF-8"
-set.clipboard = "unnamed"
+-- Hint: use `:h <option>` to figure out the meaning if needed
+vim.opt.clipboard = "unnamedplus" -- use system clipboard
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.mouse = "a" -- allow the mouse to be used in Nvim
+
+-- Tab
+vim.opt.tabstop = 4 -- number of visual spaces per TAB
+vim.opt.softtabstop = 4 -- number of spacesin tab when editing
+vim.opt.shiftwidth = 4 -- insert 4 spaces on a tab
+vim.opt.expandtab = true -- tabs are spaces, mainly because of python
+
+-- UI config
+vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
+vim.opt.splitbelow = true -- open new vertical split bottom
+vim.opt.splitright = true -- open new horizontal splits right
+vim.opt.termguicolors = true -- enabl 24-bit RGB color in the TUI
+
+-- Searching
+--vim.opt.incsearch = true -- search as characters are entered
+vim.opt.hlsearch = false -- do not highlight matches
+vim.opt.ignorecase = true -- ignore case in searches by default
+vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entered
 
 --Copy后高亮
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
@@ -119,7 +140,7 @@ require("lazy").setup({
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "pyright", "lua_ls", "rust_analyzer" },
+				ensure_installed = { "clangd", "bashls", "pyright", "lua_ls", "cmake", "marksman" },
 			})
 		end,
 	},
@@ -130,6 +151,12 @@ require("lazy").setup({
 		config = function()
 			require("neodev").setup({
 				-- add any options here, or leave empty to use the default settings
+			})
+			require("lspconfig").clangd.setup({
+				capabilities = capabilities,
+			})
+			require("lspconfig").bashls.setup({
+				capabilities = capabilities,
 			})
 			require("lspconfig").lua_ls.setup({
 				capabilities = capabilities,
