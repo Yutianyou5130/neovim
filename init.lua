@@ -200,17 +200,53 @@ require("lazy").setup {
 		config = true,
 	},
 	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			spelling = {
+				enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+				suggestions = 50, -- how many suggestions should be shown in the list?
+			},
+			popup_mappings = {
+				scroll_down = "<C-d>", -- binding to scroll down inside the popup
+				scroll_up = "<C-u>", -- binding to scroll up inside the popup
+			},
+			layout = {
+				height = { min = 15, max = 15 }, -- min and max height of the columns
+				width = {
+					min = vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()),
+					max = vim.api.nvim_win_get_width(vim.api.nvim_get_current_win()),
+				}, -- min and max width of the columns
+				spacing = 3, -- spacing between columns
+				align = "left", -- align columns left, center or right
+			},
+		},
+	},
+	{
+		-- amongst your other plugins
+		--{'akinsho/toggleterm.nvim', version = "*", config = true}
+		-- or
+		{ 'akinsho/toggleterm.nvim', version = "*", opts = { --[[ things you want to change go here]] } }
+	},
+	{
+		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		keys = {
 			{ "<Leader>p",  ":Telescope find_files<CR>", desc = "find files" },
 			{ "<Leader>P",  ":Telescope live_grep<CR>",  desc = "grep files" },
 			{ "<Leader>rs", ":Telescope resume<CR>",     desc = "resume" },
 			{ "<Leader>q",  ":Telescope old_files<CR>",  desc = "old files" },
-		},
-		"nvim-telescope/telescope.nvim",
-		tag = '0.1.1',
-		lazy = true,
-		dependencies = { "nvim-lua/plenary.nvim" },
+			tag = '0.1.1',
+			lazy = true,
+			dependencies = { "nvim-lua/plenary.nvim" },
+		}
 	},
 	{
 		cmd = "TransparentEnable",
@@ -223,6 +259,7 @@ require("lazy").setup {
 
 	},
 }
+
 
 -- All builtin colorschemes can be accessed with |:colorscheme|.
 vim.cmd('colorscheme base16-gruvbox-dark-soft')
