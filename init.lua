@@ -160,6 +160,13 @@ require("lazy").setup({
 	},
 	{
 		event = "VeryLazy",
+		"nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("nvim-treesitter.configs").setup({})
+		end,
+	},
+	{
+		event = "VeryLazy",
 		"jose-elias-alvarez/null-ls.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
