@@ -1,6 +1,7 @@
 local set = vim.o
 set.number = true
 set.relativenumber = true
+set.encoding = "UTF-8"
 set.clipboard = "unnamed"
 
 --Copy后高亮
@@ -188,6 +189,15 @@ require("lazy").setup({
 		end,
 	},
 	{
+		-- this will only start session saaving when an actual file was open.
+		event = "BufReadPre",
+		"folke/persistence.nvim",
+		config = function()
+			require("persistence").setup()
+			require("persistence").load({ last = true })
+		end,
+	},
+	{
 		event = "VeryLazy",
 		"lewis6991/gitsigns.nvim",
 		config = function()
@@ -246,13 +256,16 @@ require("lazy").setup({
 		lazy = true,
 		config = function()
 			vim.cmd([[
-" enable line numbers
-let NERDTreeShowLineNumbers=1
-" make sure relative line numbers are used
-autocmd FileType nerdtree setlocal relativenumber
+			"enable line number
+			let NERDTreeShowLineNumbers = 1
+			"make sure relative line numbers are used
+			autocmd FileType nerdtree setlocal relativenumber
 			]])
 		end,
-		dependencies = { "Xuyuanp/nerdtree-git-plugin" },
+		dependencies = {
+			"Xuyuanp/nerdtree-git-plugin",
+			"ryanoasis/vim-devicons",
+		},
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -347,7 +360,6 @@ cmp.setup.filetype("gitcommit", {
 		{ name = "buffer" },
 	}),
 })
-
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ "/", "?" }, {
 	mapping = cmp.mapping.preset.cmdline(),
@@ -369,3 +381,5 @@ cmp.setup.cmdline(":", {
 -- Set up lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+
+require("persistence").load({ last = true })
