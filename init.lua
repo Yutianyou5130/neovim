@@ -252,6 +252,7 @@ let NERDTreeShowLineNumbers=1
 autocmd FileType nerdtree setlocal relativenumber
 			]])
 		end,
+		dependencies = { "Xuyuanp/nerdtree-git-plugin" },
 	},
 	{
 		"nvim-telescope/telescope.nvim",
