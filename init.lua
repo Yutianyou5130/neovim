@@ -376,8 +376,11 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
--- Set up lspconfig.
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-
-require("persistence").load({ last = true })
+-- get parameters from nvim start commands
+local args = vim.api.nvim_get_vvar("argv")
+-- embed
+if #args > 2 then
+else
+	--persistence on start
+	require("persistence").load({ last = true })
+end
