@@ -241,6 +241,14 @@ require("lazy").setup {
 		opts = { --[[ things you want to change go here]] },
 	},
 	{
+		keys = {
+			{ "<Leader>o", ":NERDTreeToggle<CR>", desc = "Toggle NerdTree" },
+		},
+		"preservim/nerdtree",
+		cmd = { "NERDTreeFind", "NERDTree", "NERDTreeToggle" },
+		lazy = true,
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		keys = {
@@ -258,8 +266,7 @@ require("lazy").setup {
 		"xiyaowong/transparent.nvim",
 		lazy = true,
 		keys = {
-			{ "<Leader>t", ":TransparentEnable<CR>",  desc = "Enable Transparent" },
-			{ "<Leader>T", ":TransparentDisable<CR>", desc = "Disable Transparent" },
+			{ "<Leader>t", ":TransparentToggle<CR>", desc = "Toggle Transparent" },
 		},
 
 	},
