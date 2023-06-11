@@ -24,7 +24,7 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", opts)
 vim.keymap.set("n", "<Leader>[", "<C-o>", opts)
 vim.keymap.set("n", "<leader>]", "<C-i>", opts)
 vim.keymap.set("n", "<Leader>v", "<C-w>v", opts)
-vim.keymap.set("n", "<Leader>s", "<C-w>s", opts)
+vim.keymap.set("n", "<Leader>h", "<C-w>s", opts)
 
 vim.keymap.set("n", "j", [[v:count ? 'j' : 'gj']], { noremap = true, expr = true })
 vim.keymap.set("n", "k", [[v:count ? 'k' : 'gk']], { noremap = true, expr = true })
@@ -162,7 +162,81 @@ require("lazy").setup({
 		event = "VeryLazy",
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-			require("nvim-treesitter.configs").setup({})
+			require("nvim-treesitter.configs").setup({
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						node_incremental = "v",
+						node_decremental = "<BS>",
+					},
+				},
+				highlight = {
+					enable = true,
+				},
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				textobjects = {
+					textobjects = {
+						swap = {
+							enable = true,
+							swap_next = {
+								["<Leader>a"] = "@parameter.inner",
+							},
+							swap_previous = {
+								["<Leader>A"] = "@parameter.inner",
+							},
+						},
+					},
+					select = {
+						enable = true,
+
+						-- Automatically jump forward to textobj, similar to targets.vim
+						lookahead = true,
+
+						keymaps = {
+							-- You can use the capture groups defined in textobjects.scm
+							["fo"] = "@function.outer",
+							["fi"] = "@function.inner",
+							["po"] = "@parameter.outer",
+							["pi"] = "@parameter.inner",
+							["co"] = "@class.outer",
+							-- You can optionally set descriptions to the mappings (used in the desc parameter of
+							-- nvim_buf_set_keymap) which plugins like which-key display
+							["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+							-- You can also use captures from other query groups like `locals.scm`
+							["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+						},
+						-- You can choose the select mode (default is charwise 'v')
+						--
+						-- Can also be a function which gets passed a table with the keys
+						-- * query_string: eg '@function.inner'
+						-- * method: eg 'v' or 'o'
+						-- and should return the mode ('v', 'V', or '<c-v>') or a table
+						-- mapping query_strings to modes.
+						selection_modes = {
+							["@parameter.outer"] = "v", -- charwise
+							["@function.outer"] = "V", -- linewise
+							["@class.outer"] = "<c-v>", -- blockwise
+						},
+						-- If you set this to `true` (default is `false`) then any textobject is
+						-- extended to include preceding or succeeding whitespace. Succeeding
+						-- whitespace has priority in order to act similarly to eg the built-in
+						-- `ap`.
+						--
+						-- Can also be a function which gets passed a table with the keys
+						-- * query_string: eg '@function.inner'
+						-- * selection_mode: eg 'v'
+						-- and should return true of false
+						include_surrounding_whitespace = true,
+					},
+				},
+			})
 		end,
 	},
 	{
@@ -192,14 +266,6 @@ require("lazy").setup({
 					end
 				end,
 			})
-		end,
-	},
-	{
-		-- this will only start session saaving when an actual file was open.
-		event = "BufReadPre",
-		"folke/persistence.nvim",
-		config = function()
-			require("persistence").setup()
 		end,
 	},
 	{
@@ -382,12 +448,3 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
-
--- get parameters from nvim start commands
-local args = vim.api.nvim_get_vvar("argv")
--- embed
-if #args > 2 then
-else
-	--persistence on start
-	require("persistence").load({ last = true })
-end
