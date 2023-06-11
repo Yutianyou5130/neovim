@@ -67,7 +67,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -230,10 +229,9 @@ require("lazy").setup {
 		},
 	},
 	{
-		-- amongst your other plugins
-		--{'akinsho/toggleterm.nvim', version = "*", config = true}
-		-- or
-		{ 'akinsho/toggleterm.nvim', version = "*", opts = { --[[ things you want to change go here]] } }
+		'akinsho/toggleterm.nvim',
+		version = "*",
+		opts = { --[[ things you want to change go here]] },
 	},
 	{
 		"nvim-telescope/telescope.nvim",
