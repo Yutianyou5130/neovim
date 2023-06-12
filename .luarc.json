@@ -1,0 +1,33 @@
+{
+    "workspace.library": [
+        "/home/nkym/.local/share/nvim/lazy/neodev.nvim/types/stable",
+        "/usr/share/nvim/runtime/lua",
+        "/home/nkym/.local/share/nvim/lazy/lualine.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/nvim-autopairs/lua",
+        "/home/nkym/.local/share/nvim/lazy/lazy.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/plenary.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/mason.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/cmp-path/lua",
+        "/home/nkym/.local/share/nvim/lazy/transparent.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/telescope.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/nvim-treesitter/lua",
+        "/home/nkym/.local/share/nvim/lazy/cmp-cmdline/lua",
+        "/home/nkym/.local/share/nvim/lazy/nvim-base16/lua",
+        "/home/nkym/.local/share/nvim/lazy/git-conflict.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/nvim-lspconfig/lua",
+        "/home/nkym/.local/share/nvim/lazy/LuaSnip/lua",
+        "/home/nkym/.local/share/nvim/lazy/nvim-treesitter-textobjects/lua",
+        "/home/nkym/.local/share/nvim/lazy/which-key.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/bufferline.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/gitsigns.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/nvim-cmp/lua",
+        "/home/nkym/.local/share/nvim/lazy/neodev.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/cmp-buffer/lua",
+        "/home/nkym/.local/share/nvim/lazy/toggleterm.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/nvim-web-devicons/lua",
+        "/home/nkym/.local/share/nvim/lazy/cmp-nvim-lsp/lua",
+        "/home/nkym/.local/share/nvim/lazy/null-ls.nvim/lua",
+        "/home/nkym/.local/share/nvim/lazy/mason-lspconfig.nvim/lua",
+        "${3rd}/luv/library"
+    ]
+}
